@@ -2,12 +2,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerPhysics))]
-public class PlayerController : MonoBehaviour, Photon.Pun.IPunObservable
+public class PlayerController : MonoBehaviourPun, IPunObservable
 {
-
-    private PhotonView PV;
-
-    private Vector3 selfPosition;
 
     // Player Handling
     public float gravity = 20;
@@ -24,56 +20,29 @@ public class PlayerController : MonoBehaviour, Photon.Pun.IPunObservable
 	// Use this for initialization
 	void Start () {
         playerPhysics = GetComponent<PlayerPhysics>();
-
-        PV = GetComponent<PhotonView>();
-        if (PV.IsMine)
-        {
-            PV.RPC("RPC_DontDestroy", RpcTarget.All);
-        }
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (PV.IsMine)
+	private void Update () {
+        if (this.photonView.IsMine)
         {
-            PV.RPC("RPC_DontDestroy", RpcTarget.All);
-            CheckInput();
-        }
-        else
-        {
-            SmoothNetMovement();
-        }
-    }
+            targetSpeed = Input.GetAxisRaw("Horizontal") * speed;
+            currentSpeed = IncrementTowards(currentSpeed, targetSpeed, acceleration);
 
-    [PunRPC]
-    public void RPC_DontDestroy()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void CheckInput()
-    {
-        targetSpeed = Input.GetAxisRaw("Horizontal") * speed;
-        currentSpeed = IncrementTowards(currentSpeed, targetSpeed, acceleration);
-
-        if (playerPhysics.grounded)
-        {
-            amountToMove.y = 0;
-
-            if (Input.GetButtonDown("Jump"))
+            if (playerPhysics.grounded)
             {
-                amountToMove.y = jumpHeight;
+                amountToMove.y = 0;
+
+                if (Input.GetButtonDown("Jump"))
+                {
+                    amountToMove.y = jumpHeight;
+                }
             }
+
+            amountToMove.x = currentSpeed;
+            amountToMove.y -= gravity * Time.deltaTime;
+            playerPhysics.Move(amountToMove * Time.deltaTime);
         }
-
-        amountToMove.x = currentSpeed;
-        amountToMove.y -= gravity * Time.deltaTime;
-        playerPhysics.Move(amountToMove * Time.deltaTime);
-    }
-
-    private void SmoothNetMovement()
-    {
-        transform.position = Vector3.Lerp(transform.position, selfPosition, Time.deltaTime * 10);
     }
 
     // Increase n towars target by speed
@@ -94,10 +63,6 @@ public class PlayerController : MonoBehaviour, Photon.Pun.IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-        }
-        else
-        {
-            selfPosition = (Vector3)stream.ReceiveNext();
         }
     }
 }

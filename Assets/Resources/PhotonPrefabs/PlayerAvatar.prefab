@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 33877118016014722}
   - component: {fileID: 23412497433115554}
   - component: {fileID: 114552140276213406}
-  - component: {fileID: 114261642964942974}
-  - component: {fileID: 114801845191504580}
+  - component: {fileID: 114809368804662232}
+  - component: {fileID: 114252688534531868}
   m_Layer: 0
   m_Name: PlayerAvatar
   m_TagString: Untagged
@@ -250,7 +250,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1024167543759196}
   m_Enabled: 1
---- !u!114 &114261642964942974
+--- !u!114 &114252688534531868
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,13 +258,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1222002149947194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98fac77b304554f238a61572f5720187, type: 3}
+  m_Script: {fileID: 11500000, guid: fd08475b23aa548b7b9d28397d430b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 1
-  playerUiPrefab: {fileID: 1888306246425296, guid: 714cf5364ecd20b49b589d45160312af,
-    type: 2}
-  beams: {fileID: 1534826037727934}
+  distance: 7
+  height: 3
+  heightSmoothLag: 0.3
+  centerOffset: {x: 0, y: 0, z: 0}
+  followOnStart: 0
 --- !u!114 &114552140276213406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,11 +283,11 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114261642964942974}
+  - {fileID: 114809368804662232}
   viewIdField: 0
   InstantiationId: 1
   isRuntimeInstantiated: 0
---- !u!114 &114801845191504580
+--- !u!114 &114809368804662232
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,11 +295,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1222002149947194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd08475b23aa548b7b9d28397d430b32, type: 3}
+  m_Script: {fileID: 11500000, guid: c99fdd5a9d4113f448b5efda87a9a0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 7
-  height: 3
-  heightSmoothLag: 0.3
-  centerOffset: {x: 0, y: 0, z: 0}
-  followOnStart: 0
+  playerUiPrefab: {fileID: 1888306246425296, guid: 714cf5364ecd20b49b589d45160312af,
+    type: 2}

@@ -1,109 +1,118 @@
 ﻿using System;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PhotonPlayer : MonoBehaviour, Photon.Pun.IPunObservable
+public class PhotonPlayer : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    private PhotonView PV;
+    [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
+    public static GameObject LocalPlayerInstance;
 
-    // Player Movement
-    public float moveSpeed = 100f;
-    public float jumpForce = 800f;
+    [Tooltip("The Player's UI GameObject Prefab")]
+    [SerializeField]
+    private GameObject playerUiPrefab;
 
-    private Vector3 selfPosition;
-
-    // Player Handling
-    public float gravity = 20;
-    public float speed = 12;
-    public float acceleration = 35;
-    public float jumpHeight = 12;
-
-    private float currentSpeed;
-    private float targetSpeed;
-    private Vector2 amountToMove;
-
-    private PlayerPhysics playerPhysics;
-
-    // Use this for initialization
-    void Start () {
-        playerPhysics = GetComponent<PlayerPhysics>();
-
-        PV = GetComponent<PhotonView>();
-        if (PV.IsMine)
-        {
-            PV.RPC("RPC_DontDestroy", RpcTarget.All);
-        }
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        if (PV.IsMine)
-        {
-            PV.RPC("RPC_DontDestroy", RpcTarget.All);
-            CheckInput();
-        }
-        else
-        {
-            SmoothNetMovement();
-        }
-    }
-
-    [PunRPC]
-    public void RPC_DontDestroy()
+    public void Awake()
     {
+        if (photonView.IsMine)
+        {
+            LocalPlayerInstance = gameObject;
+        }
         DontDestroyOnLoad(gameObject);
     }
 
-    private void CheckInput()
-    {
-        targetSpeed = Input.GetAxisRaw("Horizontal") * speed;
-        currentSpeed = IncrementTowards(currentSpeed, targetSpeed, acceleration);
+    // Use this for initialization
+    void Start() {
+        CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
 
-        if (playerPhysics.grounded)
+        if (_cameraWork != null)
         {
-            amountToMove.y = 0;
-
-            if (Input.GetButtonDown("Jump"))
+            if (photonView.IsMine)
             {
-                amountToMove.y = jumpHeight;
+                _cameraWork.OnStartFollowing();
             }
-        }
-
-        amountToMove.x = currentSpeed;
-        amountToMove.y -= gravity * Time.deltaTime;
-        playerPhysics.Move(amountToMove * Time.deltaTime);
-    }
-
-    // Increase n towars target by speed
-    private float IncrementTowards(float n, float target, float a)
-    {
-        if (n == target)
-        {
-            return n;
         }
         else
         {
-            float dir = Mathf.Sign(target - n); // increase or decrease to get closer to target
-            n += a * Time.deltaTime * dir;
-            return (dir == Mathf.Sign(target - n)) ? n : target; // if n passes target then return target, otherwise return n
+            Debug.LogError("<Color=Red><b>Missing</b></Color> CameraWork Component on player Prefab.", this);
+        }
+
+        // Create the UI
+        if (this.playerUiPrefab != null)
+        {
+            GameObject _uiGo = Instantiate(this.playerUiPrefab);
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        }
+        else
+        {
+            Debug.LogWarning("<Color=Red><b>Missing</b></Color> PlayerUiPrefab reference on player Prefab.", this);
+        }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (photonView.IsMine)
+        {
+            this.ProcessInputs();
         }
     }
 
-    private void SmoothNetMovement()
+    public void OnTriggerEnter(Collider other)
     {
-        transform.position = Vector3.Lerp(transform.position, selfPosition, Time.deltaTime * 10);
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        this.CalledOnLevelWasLoaded(level);
+    }
+
+    private void CalledOnLevelWasLoaded(int level)
+    {
+        if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
+        {
+            transform.position = new Vector3(0f, 5f, 0f);
+        }
+
+        GameObject _uiGo = Instantiate(this.playerUiPrefab);
+        _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+    }
+
+    private void ProcessInputs()
+    {
+        
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode loadingMode)
+    {
+        this.CalledOnLevelWasLoaded(scene.buildIndex);
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-        }
-        else
-        {
-            selfPosition = (Vector3)stream.ReceiveNext();
-        }
+        
     }
 }
