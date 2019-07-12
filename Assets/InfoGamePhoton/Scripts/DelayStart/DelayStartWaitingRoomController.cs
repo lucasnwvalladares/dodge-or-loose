@@ -3,6 +3,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks {
 
@@ -37,6 +38,9 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks {
     [SerializeField]
     private float maxFullGameWaitTime;
 
+    public Transform[] SpawnPoints;
+    public GameObject myAvatar;
+
     // Use this for initialization
     void Start () {
         myPhotonView = GetComponent<PhotonView>();
@@ -45,7 +49,14 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks {
         timerToStartGame = maxWaitTime;
 
         PlayerCountUpdate();
-	}
+        CreatePlayer();
+    }
+
+    private void CreatePlayer()
+    {
+        Debug.Log("Creating new player...");
+        myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar"), SpawnPoints[playerCount - 1].position, SpawnPoints[playerCount - 1].rotation);
+    }
 
     void PlayerCountUpdate()
     {
