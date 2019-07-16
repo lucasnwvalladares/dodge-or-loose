@@ -29,14 +29,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             targetSpeed = Input.GetAxisRaw("Horizontal") * speed;
             currentSpeed = IncrementTowards(currentSpeed, targetSpeed, acceleration);
 
-            if (playerPhysics.grounded)
-            {
-                amountToMove.y = 0;
+            amountToMove.y = 0;
 
-                if (Input.GetButtonDown("Jump"))
-                {
-                    amountToMove.y = jumpHeight;
-                }
+            if (Input.GetKey(KeyCode.W))
+            {
+                amountToMove.y = jumpHeight;
             }
 
             amountToMove.x = currentSpeed;

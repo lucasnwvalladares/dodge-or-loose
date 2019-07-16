@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/InfoGamePhoton/Scenes/DelayStartMenuDemo.unity
     guid: ea2ab1dd6ca585d468ca74e3f1146024
-  - enabled: 1
+  - enabled: 0
     path: Assets/InfoGamePhoton/Scenes/DelayStarWaitingRoomDemo.unity
     guid: 1d9cb52a8048841429340c1858ca9045
   - enabled: 1

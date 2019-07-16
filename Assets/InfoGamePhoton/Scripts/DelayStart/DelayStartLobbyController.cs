@@ -35,7 +35,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks {
     {
         Debug.Log("Creating a room...");
         int randomRoomNumber = Random.Range(0, 100);
-        RoomOptions roomOpts = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
+        RoomOptions roomOpts = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)MultiplayerSettings.multiplayerSettings.maxPlayers };
         string roomName = "Room" + randomRoomNumber;
         PhotonNetwork.CreateRoom(roomName, roomOpts);
         Debug.Log("Trying to create room: " + roomName + ".");

@@ -3,7 +3,6 @@ PlayerPath?
 C:/Users/Lucas Nicolás/Desktop/Dodge or Loose 2D.exe
 SceneListBegin?
 Assets/InfoGamePhoton/Scenes/DelayStartMenuDemo.unity
-Assets/InfoGamePhoton/Scenes/DelayStarWaitingRoomDemo.unity
 Assets/InfoGamePhoton/Scenes/MultiPlayerScene.unity
 SceneListEnd?
 7cf989b6fa3ec024d70b9d1040febe5b Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.PlayerListCell
@@ -169,11 +168,13 @@ e1ea12ca952c81d81a9a21fdf34446ed UnityEngine.HoloLens.dll:UnityEngine.EventSyste
 98d69a140ec0084cde3b6a5e09aea295 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 dfd33ff9ae3ce8d7ca1f22b475ec2387 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 d41af92d60a614749bef8643b9d5aae2 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.Forms.CreateRoomUiForm
+4f9ea214f8e32935eb0f261d3de3f660 Assembly-CSharp.dll:.MultiplayerSettings
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.AutoSyncSceneToggle
 96f3ea9f23b6f08e60710ebb4af49174 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 776a113de3e9b1ce7dbe933219cc69a6 Assembly-CSharp.dll:.PlayerController
 323ce01f91533a9e50a9b8d351054637 Assembly-CSharp.dll:Photon.Pun.Demo.SlotRacer.PlayerControl
 3d9992eb9e8452d2fb21ba548bd4aca1 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.BestRegionInPrefsProperty
+eccc295e435e3d412543088909e45130 Assembly-CSharp.dll:.PhotonRoom
 3d9992eb9e8452d2fb21ba548bd4aca1 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.CurrentRoomPlayerTtlProperty
 8ba0a5ff0517fc43d26b4c59601bf5b9 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.InfosPanelPlaceholder
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.NewBehaviourScript
@@ -193,7 +194,7 @@ ae74fc196a06f796692fe7705044f8ec PhotonUnityNetworking.dll:Photon.Pun.PhotonRigi
 b52fce0caba9c9c9a5860008b527f5ce Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.PlayerDetailsController
 fa262644fac0869ddef8222cdcdc1af7 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.GameVersionField
 486cd95c82d8305219c352c06b776e1f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
-486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.GameSetup
+f971638b0766542d13cb57d81c96d92a Assembly-CSharp.dll:.GameSetup
 1cc9baa78a24dea7ed624158098d6539 PhotonUnityNetworking.dll:Photon.Pun.PhotonTransformView
 3d9992eb9e8452d2fb21ba548bd4aca1 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.CurrentRoomPropertiesListedInLobbyProperty
 56d8f0196718f9907882cb25ad680971 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.PropertyListenerBase
@@ -239,7 +240,8 @@ fc061f3ae8a876c0687e86378d4a447c UnityEngine.Networking.dll:UnityEngine.Networki
 e53cc67d84060d628c7f03fc725766d8 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Photon.Pun.Demo.Procedural.Cluster
 392c5b921098bd4c139d9146d0efa6d7 Unity.TextMeshPro.dll:TMPro.TMP_Settings
-a3bf253cb6755dc966c9112c9fab0d25 Assembly-CSharp.dll:.PhotonPlayer
+c0f7b94b752c719b6fb168ea9dd69dd4 Assembly-CSharp.dll:.PhotonPlayer
+98e5cdde450fdaa6680d7b072605407f Assembly-CSharp.dll:.PhotonLobby
 171b07b61d67050a3da231688f4c2950 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.AppVersionProperty
 ddcae71b3f91386237efd012a9eef2be UnityEngine.TestRunner.dll:UnityEngine.TestTools.EnumerableSetUpTearDownCommandState
 486cd95c82d8305219c352c06b776e1f UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
@@ -288,6 +290,7 @@ a2651694e7b6c8dd699b038f729bf69b PhotonRealtime.dll:Photon.Realtime.SupportLogge
 f4b8676fdc4f005575ebd2e611f0a689 PhotonUnityNetworking.dll:Photon.Pun.PhotonTransformViewClassic
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.CrcCheckToggle
 486cd95c82d8305219c352c06b776e1f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.OnPointerOverTooltip
+776a113de3e9b1ce7dbe933219cc69a6 Assembly-CSharp.dll:.PlayerMovement
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:Photon.Chat.UtilityScripts.OnStartDelete
 3d9992eb9e8452d2fb21ba548bd4aca1 Assembly-CSharp.dll:Photon.Pun.Demo.Cockpit.IsConnectedAndReadyProperty
 e04611b8715e6833d2bd7010fc6be10b Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
